@@ -1,5 +1,5 @@
 import React from "react";
-import colors from "../../constants/colors"
+import { colors, fonts } from "../../constants";
 import {
   Text,
   TouchableHighlight,
@@ -8,35 +8,41 @@ import {
   ViewStyle,
   TextStyle,
   ActivityIndicator,
-  ActivityIndicatorProps
+  ActivityIndicatorProps,
 } from "react-native";
 
-export interface ButtonProps {
+
+export interface OutlineButton {
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
   onPress?: () => void;
-  onLongPress?: () => void,
+  onLongPress?: () => void;
   underlayColor?: string;
   disabled?: boolean;
   loading?: boolean;
-  loadingStyle?: ActivityIndicatorProps
+  loadingStyle?: ActivityIndicatorProps;
 }
 
-export function Button(props: ButtonProps): JSX.Element {
+export function OutlineButton(props: OutlineButton): JSX.Element {
   return (
     <TouchableHighlight
       disabled={props?.disabled}
       onLongPress={props?.onLongPress}
       onPress={props?.onPress}
       underlayColor={
-        props?.underlayColor ? props?.underlayColor : colors.BUTTON_UNDERLAY_COLOR
+        props?.underlayColor ? props?.underlayColor : "transparent"
       }
-      style={[props?.loading ? style?.buttonWithLoading : style?.button, props?.buttonStyle]}
+      style={[
+        props?.loading ? style.buttonWithLoading : style?.button,
+        props?.buttonStyle,
+      ]}
     >
       <>
         <Text style={[style?.title, props?.titleStyle]}>{props?.title}</Text>
-        {props?.loading && <ActivityIndicator size="small" color="white" /> }
+        {props?.loading && (
+          <ActivityIndicator { ...props?.loadingStyle } />
+        )}
       </>
     </TouchableHighlight>
   );
@@ -44,7 +50,8 @@ export function Button(props: ButtonProps): JSX.Element {
 
 const style = StyleSheet.create({
   button: {
-    backgroundColor: "#1058f3",
+    borderWidth: 1,
+    borderColor: colors.BUTTON_UNDERLAY_COLOR,
     width: "50%",
     padding: 10,
     borderRadius: 7,
@@ -52,20 +59,22 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   buttonWithLoading: {
-    backgroundColor: "#1058f3",
-    width: "50%",
+    borderWidth: 1,
+    borderColor: colors.BUTTON_UNDERLAY_COLOR,
+    width: "53%",
     padding: 10,
     borderRadius: 7,
     overflow: "hidden",
     alignItems: "center",
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap'
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
   },
   title: {
-    color: "white",
+    color: colors.BUTTON_COLOR,
     textAlign: "center",
     fontSize: 15,
-    letterSpacing: 1.5
+    letterSpacing: 1.5,
+    fontFamily: fonts.bold,
   },
 });
