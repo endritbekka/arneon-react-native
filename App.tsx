@@ -5,7 +5,7 @@ import { Button } from "./components/Button"
 export default function App() {
   return (
     <View style={styles.container}>
-      <Button title="B U T T O N" />
+      <Button onPress={() => {}} title="B U T T O N" />
     </View>
   );
 }

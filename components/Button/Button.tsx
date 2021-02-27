@@ -1,4 +1,5 @@
 import React from "react";
+import colors from "../../constants/colors"
 import {
   Text,
   TouchableHighlight,
@@ -7,8 +8,6 @@ import {
   ViewStyle,
   TextStyle
 } from "react-native";
-
-const defaultUnderlayColor = "#0b4ad2";
 
 interface ButtonProps {
   title?: string;
@@ -23,7 +22,7 @@ export function Button(props: ButtonProps): JSX.Element {
     <TouchableHighlight
       onPress={props?.onPress}
       underlayColor={
-        props?.underlayColor ? props?.underlayColor : defaultUnderlayColor
+        props?.underlayColor ? props?.underlayColor : colors.BUTTON_UNDERLAY_COLOR
       }
       style={[style?.button, props?.buttonStyle]}
     >
